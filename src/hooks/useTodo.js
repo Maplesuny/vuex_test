@@ -1,27 +1,41 @@
 import { ref, computed } from 'vue'
-import store from 'src/store';
+import { useStore } from "vuex"
 
-
+// 裡面寫操作TODO的動作，把功能隔離出來，再導入vue即可
 export default function useTodo () {
-
-
+    const store = useStore()
     const newTodo = ref('');
-    const todos = computed(() => store.getters['todos']);
-
-    const addTodo = () => {
-        const value = newTodo.value && newTodo.value.trim()
-        // add 如果資料是空則不用新增
+    const todos = computed(() => store.getters['todos'])
+    function addTodo () {
+        const value = newTodo.value && newTodo.value.trim();
         if (!value) {
-            return
+            return;
         }
+
         const payload = {
-            title: value
+            id: count_(),
+            title: value,
+            done: false
         }
+
         store.dispatch('ADD_TODO', payload)
-        newTodo.value = ''
+        newTodo.value = '';
+        // eslint-disable-next-line no-console
+        console.log('add', todos.value.length)
+    }
+    //計算id要設多少，賦予id
+    let id_state = false
+    function count_ () {
+        let i
+        for (i = todos.value.length; i <= todos.value.length; i++) {
+            id_state = true
+        }
+        console.log('dfd', i)
+        return i
     }
 
-    const removeTodo = (id) => {
+    function removeTodo (id) {
+        console.log('傳送removeid', id)
         store.dispatch('REMOVE_TODO', id)
     }
 
@@ -29,7 +43,7 @@ export default function useTodo () {
         addTodo,
         removeTodo,
         newTodo,
-        todos
+        todos,
     }
 
 

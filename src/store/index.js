@@ -3,16 +3,17 @@ import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
   state: {
+    count: 110,
     todos: [
       {
         id: 1,
         title: "This is long, I hope that it gets abbreviated",
-        done: true
+        done: false
       },
       {
         id: 2,
         title: "Scary Vue 3 presentation",
-        done: false
+        done: true
       },
       {
         id: 3,
@@ -32,12 +33,12 @@ export default createStore({
   mutations: {
     SET_TODO (state, payload) {
       state.todos = [...state.todos, payload];
-
+      console.log(state.todos)
     },
     DELETE_TODO (state, payload) {
       const index = state.todos.findIndex(todo => todo.id === payload);
       state.todos.splice(index, 1);
-
+      console.log('delete', index)
     }
   },
   getters: {
@@ -48,4 +49,7 @@ export default createStore({
   // plugins: [
   //   createPersistedState()
   // ]
+  // plugins: [createPersistedState({
+  //   storage: window.sessionStorage
+  // })]
 })
