@@ -11,17 +11,13 @@ export default function useTodo () {
         if (!value) {
             return;
         }
-
         const payload = {
             id: count_(),
             title: value,
             done: false
         }
-
         store.dispatch('ADD_TODO', payload)
         newTodo.value = '';
-        // eslint-disable-next-line no-console
-        console.log('add', todos.value.length)
     }
     //計算id要設多少，賦予id
     let id_state = false
@@ -30,12 +26,10 @@ export default function useTodo () {
         for (i = todos.value.length; i <= todos.value.length; i++) {
             id_state = true
         }
-        console.log('dfd', i)
         return i
     }
 
     function removeTodo (id) {
-        console.log('傳送removeid', id)
         store.dispatch('REMOVE_TODO', id)
     }
 

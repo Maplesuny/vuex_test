@@ -33,12 +33,12 @@ export default createStore({
   mutations: {
     SET_TODO (state, payload) {
       state.todos = [...state.todos, payload];
-      console.log(state.todos)
+      // console.log(state.todos)
     },
     DELETE_TODO (state, payload) {
       const index = state.todos.findIndex(todo => todo.id === payload);
       state.todos.splice(index, 1);
-      console.log('delete', index)
+      // console.log('delete', index)
     }
   },
   getters: {
